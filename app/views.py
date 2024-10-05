@@ -44,3 +44,14 @@ def display_emp(request):
 def display_dept(request):
     d = {'department' : Dept.objects.all()}
     return render(request,'display_dept.html',d)
+
+def display_deptemp(request):
+    deo = Emp.objects.select_related('deptno').all()
+    deo = Emp.objects.select_related('deptno').filter(comm__isnull=False,ename__startswith = 'T')
+    deo = Emp.objects.select_related('deptno').filter(deptno__dname = 'Sales')
+    deo = Emp.objects.select_related('deptno').filter(deptno__dname__startswith ='s')
+    deo = Emp.objects.select_related('deptno').filter(deptno__dname = 'Accounting')
+    deo = Emp.objects.select_related('deptno').all()
+    deo = Emp.objects.select_related('deptno','mgr').all()
+    d = {'deptemp':deo}
+    return render(request,'display_deptemp.html',d)
